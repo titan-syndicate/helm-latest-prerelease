@@ -17,5 +17,4 @@ helm plugin install https://github.com/titan-syndicate/helm-latest-prerelease
 
 ```
 helm upgrade -i jenkins jenkins/jenkins --version=$(helm latest-prerelease jenkins/jenkins)
-
 ```
