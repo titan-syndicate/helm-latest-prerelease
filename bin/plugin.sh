@@ -1,8 +1,21 @@
 #!/bin/bash
 
-# The name of the chart repository and chart
-REPO_NAME="titan-syndicate"
-CHART_NAME="next-app-chart"
+# Check if a repo/chart combination was provided as an argument
+if [ -z "$1" ]; then
+    echo "Error: Please provide a 'repo/chart' combination as an argument." >&2
+    exit 1
+fi
+
+# Split the argument into REPO_NAME and CHART_NAME
+IFS='/' read -ra ADDR <<< "$1"
+REPO_NAME="${ADDR[0]}"
+CHART_NAME="${ADDR[1]}"
+
+# Validate if both repo name and chart name are provided
+if [ -z "$REPO_NAME" ] || [ -z "$CHART_NAME" ]; then
+    echo "Error: Invalid argument. Expected format is 'repo/chart'." >&2
+    exit 1
+fi
 
 # Fetch the list of all versions for the chart
 ALL_VERSIONS=$(helm search repo ${REPO_NAME}/${CHART_NAME} --versions | grep ${CHART_NAME} | awk '{print $2}')
