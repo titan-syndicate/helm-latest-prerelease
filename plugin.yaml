@@ -1,6 +1,6 @@
 name: "latest-prerelease"
-version: "0.0.3"
+version: "0.0.4"
 usage: "Get the latest pre-release version of a Helm chart"
 description: "A Helm plugin to fetch the latest pre-release version of a specified chart"
 ignoreFlags: false
-command: "bin/plugin.sh"
+command: "$HELM_PLUGIN_DIR/bin/plugin.sh"
