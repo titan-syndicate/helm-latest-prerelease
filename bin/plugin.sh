@@ -18,10 +18,10 @@ if [ -z "$REPO_NAME" ] || [ -z "$CHART_NAME" ]; then
 fi
 
 # Fetch the list of all versions for the chart
-ALL_VERSIONS=$(helm search repo ${REPO_NAME}/${CHART_NAME} --versions | grep ${CHART_NAME} | awk '{print $2}')
+ALL_VERSIONS=$(helm search repo ${REPO_NAME}/${CHART_NAME} --versions --devel | grep ${CHART_NAME} | awk '{print $2}')
 
 # Filter for pre-release versions and get the latest one
-LATEST_PRERELEASE=$(echo "$ALL_VERSIONS" | grep -E "-(alpha|beta|rc)\." | sort -V | tail -n 1)
+LATEST_PRERELEASE=$(echo "$ALL_VERSIONS" | grep -- "-alpha\|-beta\|-rc" | sort -V | tail -n 1)
 
 # Check if there are no pre-release versions
 if [ -z "$LATEST_PRERELEASE" ]; then
